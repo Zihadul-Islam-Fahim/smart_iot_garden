@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "791149209793",
+    "firebase_url": "https://iot-garden-b741c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "iot-garden-b741c",
+    "storage_bucket": "iot-garden-b741c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791149209793:android:6a03e0048edc33d35bcc40",
+        "android_client_info": {
+          "package_name": "com.fahimzihad.iot_garden"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnQom_6U4BI6S2jEPURp3V1OliU0Scu8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
