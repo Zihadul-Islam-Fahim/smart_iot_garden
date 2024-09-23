@@ -1,5 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <FirebaseESP8266.h>
+#include <DHT11.h>
 
 
 const char* ssid = "Insecure Connection";
@@ -13,10 +14,15 @@ FirebaseAuth firebaseAuth;
 FirebaseConfig firebaseConfig;
 int soil;
 int moisture;
+int temperature = 0;
+int humidity = 0;
 bool waterMotor;
+
+DHT11 dht11(D0);
 
 void setup() {
   pinMode(A0,INPUT);
+  pinMode(D1,INPUT);
   pinMode(D4,OUTPUT);
   Serial.begin(115200);
   delay(1000);
@@ -48,6 +54,8 @@ void loop() {
     // soil = digitalRead(D0);
     soil = analogRead(A0);
   moisture= map(soil,0,1023,100,0);
+
+ int result = dht11.readTemperatureHumidity(temperature, humidity);
   
  if(Firebase.get(firebaseData,"/gardenData/waterMotor")){
     waterMotor = firebaseData.boolData();
@@ -65,9 +73,25 @@ void loop() {
 
   delay(100);
    FirebaseJson json;
-  json.add("temprature", 42);
+
+      if (result == 0) {
+        Serial.print("Temperature: ");
+        Serial.print(temperature);
+        Serial.print(" °C\tHumidity: ");
+        Serial.print(humidity);
+        Serial.println(" %");
+
+        json.add("temprature", temperature);
+          json.add("humidity", humidity);
+
+
+    } else {
+      
+        Serial.println(DHT11::getErrorString(result));
+    }
+
+
  // json.add("waterMotor", false);
-  json.add("humidity", 20);
   json.add("soilHumidity", moisture);
 
   // Send a test data to Firebase
